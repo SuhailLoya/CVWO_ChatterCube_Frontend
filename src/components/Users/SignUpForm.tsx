@@ -5,6 +5,9 @@ import "react-toastify/dist/ReactToastify.css";
 import { toast } from "react-toastify";
 import axios from "axios";
 
+const API = "https://mysite-muiy.onrender.com";
+
+
 const SignupForm = () => {
     const [formData, setFormData] = useState({
         email: "",
@@ -23,7 +26,7 @@ const SignupForm = () => {
         console.log(formData);
         e.preventDefault();
         try {
-            await axios.post("http://localhost:3000/users", {
+            await axios.post(`${API}/users`, {
                 user: formData,
             });
             //console.log("Signup successful:", response.data);

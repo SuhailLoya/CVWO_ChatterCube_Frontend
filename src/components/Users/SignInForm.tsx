@@ -5,6 +5,8 @@ import axios from "axios";
 import "react-toastify/dist/ReactToastify.css";
 import { toast } from "react-toastify";
 
+const API = "https://mysite-muiy.onrender.com";
+
 interface SigninFormProps {
     onSignIn: () => void;
 }
@@ -25,12 +27,9 @@ const SignInForm = ({ onSignIn }: SigninFormProps) => {
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         try {
-            const response = await axios.post(
-                "http://localhost:3000/users/sign_in",
-                {
-                    user: formData,
-                }
-            );
+            const response = await axios.post(`${API}/users/sign_in`, {
+                user: formData,
+            });
             console.log("Signin successful:", response.data);
             const token = response.data.token;
             localStorage.setItem("token", token);

@@ -19,7 +19,7 @@ import TopicEdit from "./components/Topics/TopicEdit";
 import SignUpForm from "./components/Users/SignUpForm";
 import SignInForm from "./components/Users/SignInForm";
 
-const API_URL = "https://mysite-muiy.onrender.com/api/v1/topics";
+const API = "https://mysite-muiy.onrender.com";
 
 function App() {
     const [error, setError] = useState(null);
@@ -29,29 +29,32 @@ function App() {
     const [currentUserEmail, setCurrentUserEmail] = useState("");
 
     useEffect(() => {
-        axios
-            .get("http://localhost:3000/user", {
-                headers: {
-                    Accept: "application/json",
-                    Authorization: `Bearer ${localStorage.getItem("token")}`,
-                },
-            })
-            .then((response) => {
-                setCurrentUserEmail(response.data.email);
-            })
-            .catch((error) => {
-                console.error("Error fetching current user:", error);
-            });
-    }, []);
-
-    useEffect(() => {
         const token = localStorage.getItem("token");
         setIsLoggedIn(!!token);
     }, []);
+    useEffect(() => {
+        if (isLoggedIn) {
+            axios
+                .get(`${API}/user`, {
+                    headers: {
+                        Accept: "application/json",
+                        Authorization: `Bearer ${localStorage.getItem(
+                            "token"
+                        )}`,
+                    },
+                })
+                .then((response) => {
+                    setCurrentUserEmail(response.data.email);
+                })
+                .catch((error) => {
+                    console.error("Error fetching current user:", error);
+                });
+        }
+    }, [isLoggedIn]);
 
     useEffect(() => {
         axios
-            .get<Topic[]>(API_URL)
+            .get<Topic[]>(`${API}/api/v1/topics`)
             .then((response) => response.data)
             .then((data) => {
                 setIsMounted(true);
@@ -95,7 +98,7 @@ function App() {
 
     const handleSignIn = async () => {
         await axios
-            .get("http://localhost:3000/user", {
+            .get(`${API}/user`, {
                 headers: {
                     Accept: "application/json",
                     Authorization: `Bearer ${localStorage.getItem("token")}`,

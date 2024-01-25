@@ -5,6 +5,8 @@ import CommentForm from "./CommentForm";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
+const API = "https://mysite-muiy.onrender.com";
+
 interface CommentsProps {
     id: string;
 }
@@ -21,9 +23,7 @@ const Comments = ({ id }: CommentsProps) => {
 
     useEffect(() => {
         axios
-            .get<Comment[]>(
-                `http://localhost:3000/api/v1/topics/${id}/comments`
-            )
+            .get<Comment[]>(`${API}/api/v1/topics/${id}/comments`)
             .then((response) => response.data)
             .then((data) => {
                 setComments(data);
@@ -44,7 +44,7 @@ const Comments = ({ id }: CommentsProps) => {
 
     const refresh = () => {
         axios
-            .get(`http://localhost:3000/api/v1/topics/${id}/comments`)
+            .get(`${API}/api/v1/topics/${id}/comments`)
             .then((response) => response.data)
             .then((data) => {
                 setComments(data);
@@ -56,17 +56,12 @@ const Comments = ({ id }: CommentsProps) => {
 
     const handleDeleteComment = async (commentId: number) => {
         await axios
-            .delete(
-                `http://localhost:3000/api/v1/topics/${id}/comments/${commentId}`,
-                {
-                    headers: {
-                        Accept: "application/json",
-                        Authorization: `Bearer ${localStorage.getItem(
-                            "token"
-                        )}`,
-                    },
-                }
-            )
+            .delete(`${API}/api/v1/topics/${id}/comments/${commentId}`, {
+                headers: {
+                    Accept: "application/json",
+                    Authorization: `Bearer ${localStorage.getItem("token")}`,
+                },
+            })
             .then(() => {
                 console.log("Comment deleted successfully");
                 refresh();
@@ -94,7 +89,7 @@ const Comments = ({ id }: CommentsProps) => {
     const handleSaveEdit = async (commentId: number) => {
         await axios
             .put(
-                `http://localhost:3000/api/v1/topics/${id}/comments/${commentId}`,
+                `${API}/api/v1/topics/${id}/comments/${commentId}`,
                 { content: editedCommentContent },
                 {
                     headers: {

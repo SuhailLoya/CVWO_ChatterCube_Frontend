@@ -4,6 +4,8 @@ import axios from "axios";
 import { useNavigate, useParams, Link } from "react-router-dom";
 import { Topic } from "../../interfaces";
 
+const API = "https://mysite-muiy.onrender.com";
+
 interface TopicEditProps {
     onUpdateTopic: (updatedTopic: Topic) => void;
 }
@@ -22,7 +24,7 @@ const TopicEdit = ({ onUpdateTopic }: TopicEditProps) => {
 
     useEffect(() => {
         axios
-            .get(`http://localhost:3000/api/v1/topics/${id}`)
+            .get(`${API}/api/v1/topics/${id}`)
             .then((response) => setFormData(response.data))
             .catch((error) => console.error("Error fetching topic:", error));
     }, [id]);
@@ -38,7 +40,7 @@ const TopicEdit = ({ onUpdateTopic }: TopicEditProps) => {
         e.preventDefault();
 
         axios
-            .put(`http://localhost:3000/api/v1/topics/${id}`, formData, {
+            .put(`${API}/api/v1/topics/${id}`, formData, {
                 headers: {
                     Accept: "application/json",
                     Authorization: `Bearer ${localStorage.getItem("token")}`,

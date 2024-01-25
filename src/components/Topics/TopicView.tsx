@@ -5,6 +5,8 @@ import { Button, Typography, Box, Paper } from "@mui/material";
 import { Topic } from "../../interfaces";
 import Comments from "../Comments/Comments";
 
+const API = "https://mysite-muiy.onrender.com";
+
 interface TopicViewProps {
     onDeleteTopic: (deletedTopic: Topic) => void;
 }
@@ -16,7 +18,7 @@ const TopicView = ({ onDeleteTopic }: TopicViewProps) => {
 
     useEffect(() => {
         axios
-            .get<Topic>(`http://localhost:3000/api/v1/topics/${id}`)
+            .get<Topic>(`${API}/api/v1/topics/${id}`)
             .then((response) => response.data)
             .then((data) => {
                 setTopic(data);
@@ -37,7 +39,7 @@ const TopicView = ({ onDeleteTopic }: TopicViewProps) => {
 
         if (isConfirmed) {
             await axios
-                .delete(`http://localhost:3000/api/v1/topics/${id}`, {
+                .delete(`${API}/api/v1/topics/${id}`, {
                     headers: {
                         Accept: "application/json",
                         Authorization: `Bearer ${localStorage.getItem(

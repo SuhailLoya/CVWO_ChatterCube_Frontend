@@ -4,6 +4,8 @@ import axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
 import { Topic } from "../../interfaces";
 
+const API = "https://mysite-muiy.onrender.com";
+
 interface TopicFormProps {
     onTopicCreated: (newTopic: Topic) => void;
 }
@@ -11,7 +13,7 @@ interface TopicFormProps {
 const TopicForm = ({ onTopicCreated }: TopicFormProps) => {
     const navigate = useNavigate();
     const [formData, setFormData] = useState<Topic>({
-        username: "aa",
+        username: "",
         title: "",
         body: "",
         tags: "",
@@ -21,7 +23,7 @@ const TopicForm = ({ onTopicCreated }: TopicFormProps) => {
 
     useEffect(() => {
         axios
-            .get("http://localhost:3000/user", {
+            .get(`${API}/user`, {
                 headers: {
                     Accept: "application/json",
                     Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -48,7 +50,7 @@ const TopicForm = ({ onTopicCreated }: TopicFormProps) => {
         e.preventDefault();
 
         axios
-            .post("http://localhost:3000/api/v1/topics", formData, {
+            .post(`${API}/api/v1/topics`, formData, {
                 headers: {
                     Accept: "application/json",
                     Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -58,7 +60,7 @@ const TopicForm = ({ onTopicCreated }: TopicFormProps) => {
                 const newTopic: Topic = response.data;
                 onTopicCreated(newTopic);
                 setFormData({
-                    username: "aa",
+                    username: "",
                     title: "",
                     body: "",
                     tags: "",

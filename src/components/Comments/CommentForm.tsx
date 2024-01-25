@@ -3,6 +3,8 @@ import { Box, Button, TextField } from "@mui/material";
 import axios from "axios";
 import { Comment } from "../../interfaces";
 
+const API = "https://mysite-muiy.onrender.com"
+
 interface CommentFormProps {
     topicId: string;
     onCommentAdded: () => void;
@@ -29,7 +31,7 @@ const CommentForm = ({ topicId, onCommentAdded }: CommentFormProps) => {
 
         axios
             .post(
-                `http://localhost:3000/api/v1/topics/${topicId}/comments`,
+                `${API}/api/v1/topics/${topicId}/comments`,
                 comment,
                 {
                     headers: {

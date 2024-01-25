@@ -115,7 +115,7 @@ function App() {
 
     return (
         <Router>
-            <AppBar position="fixed">
+            <AppBar position="fixed" sx={{ mb: 4 }}>
                 <Toolbar>
                     <Typography
                         variant="h6"
@@ -178,7 +178,7 @@ function App() {
                                 <Typography
                                     variant="h1"
                                     sx={{
-                                        my: 2,
+                                        mt: 5,
                                         textAlign: "center",
                                         color: "primary.main",
                                     }}

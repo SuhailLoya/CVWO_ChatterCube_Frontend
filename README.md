@@ -1,30 +1,25 @@
-# React + TypeScript + Vite
+#Introduction
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+ChatterCube is a curated web forum designed to facilitate meaningful and diverse conversations. It will serve as an intellectual hub where users engage in insightful dialogue across a spectrum of topics. More than just a forum, ChatterCube encourages an environment where users can explore trends, participate in substantive debates, and enjoy amicable discussions. Within the refined confines of ChatterCube, every voice contributes to a richer understanding of the world, fostering an atmosphere of respect and intellectual exchange.
 
-Currently, two official plugins are available:
+#Setup:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+I had to separate my main project into two different repositories for deployment requirements. I have still preserved the original repository.
 
-## Expanding the ESLint configuration
+Original: https://github.com/SuhailLoya/ChatterCube_CVWO_Project (with all the main commits)
+Frontend: https://github.com/SuhailLoya/CVWO_Frontend
+Backend: https://github.com/SuhailLoya/CVWO_Backend
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+Currently,
+The front end is deployed using Vercel at: https://cvwo-frontend-gamma.vercel.app/
+The back end is deployed using Render at: https://mysite-muiy.onrender.com/
 
-- Configure the top-level `parserOptions` property like this:
+(note backend is API only and there is no home directory at the backend, so go to https://mysite-muiy.onrender.com/api/v1/topics, which fetches the JSON of current topics on the server)
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
+To make it run locally, please clone both frontend and backend. You would also need to change the API variable in React Components to your local host port.
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+Also, add your local host port as an origin to cors (under Backend/config/initializers/cors.rb).
+
+Run both front-end and back-end, separately, and access the website via the Front-end application.
+
+Note: Don’t forget the common before-run formalities like npm install, bundle install, initialize, create, and migrate rails db
